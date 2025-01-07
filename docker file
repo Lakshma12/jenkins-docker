@@ -1,3 +1,2 @@
-FROM ubuntu
-RUN apt update
-Run apt-get install -y nginx  
+#!/bin/bash
+echo "Hello World"
