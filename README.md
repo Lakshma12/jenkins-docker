@@ -47,6 +47,6 @@ post {
 ```
 
 # Step3:
-Clones the code from GitHub.
-Builds a Docker image using the Dockerfile in the repository.
-Pushes the Docker image to DockerHub
+- Clones the code from GitHub.
+- Builds a Docker image using the Dockerfile in the repository.
+-mPushes the Docker image to DockerHub
