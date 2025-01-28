@@ -50,3 +50,4 @@ post {
 - Clones the code from GitHub.
 - Builds a Docker image using the Dockerfile in the repository.
 - Pushes the Docker image to DockerHub.
+![Image](https://github.com/user-attachments/assets/19d10ac6-11f6-49cf-b6c3-28e7bd619f45)
