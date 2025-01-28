@@ -9,7 +9,7 @@
 5.Jenkins credentials are set up for both GitHub and DockerHub.
 # step2:Create a Jenkins Pipeline
 Create a Jenkinsfile that defines the pipeline to clone the code, build the Docker image, and push it to DockerHub
-(pipeline {
+'''pipeline {
     agent any 
     environment {
     DOCKERHUB_CREDENTIALS = credentials('123456')
@@ -42,4 +42,4 @@ post {
             sh 'docker logout'
         }
     }
-})
+}
