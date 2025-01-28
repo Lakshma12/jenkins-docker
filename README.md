@@ -2,11 +2,11 @@
 ![Image](https://github.com/user-attachments/assets/0ddaa063-0fed-4502-a325-fec39456cb0a)
 
 # Step1 :
-1.Jenkins is installed and running,
-2.Docker is installed on the Jenkins machine,
-3.You have a GitHub repository that contains your application code and a Dockerfile.
-4.You have a DockerHub account and a DockerHub repository where the image will be pushed.
-5.Jenkins credentials are set up for both GitHub and DockerHub.
+1. Jenkins is installed and running.
+2. Docker is installed on the Jenkins machine.
+3. You have a GitHub repository that contains your application code and a Dockerfile.
+4. You have a DockerHub account and a DockerHub repository where the image will be pushed.
+5. Jenkins credentials are set up for both GitHub and DockerHub.
 # step2:Create a Jenkins Pipeline
 Create a Jenkinsfile that defines the pipeline to clone the code, build the Docker image, and push it to DockerHub
 ```bash
