@@ -1,3 +1,3 @@
 # Automated Process of Docker Image Build and Push To DockerHub with Use Of CI/CD Jenkins
-[eraser-export-export-1-28-2025-5_53_07-PM.zip](https://github.com/user-attachments/files/18573612/eraser-export-export-1-28-2025-5_53_07-PM.zip)
+![Image](https://github.com/user-attachments/assets/0ddaa063-0fed-4502-a325-fec39456cb0a)
 
