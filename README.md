@@ -9,43 +9,42 @@
 5.Jenkins credentials are set up for both GitHub and DockerHub.
 # step2:Create a Jenkins Pipeline
 Create a Jenkinsfile that defines the pipeline to clone the code, build the Docker image, and push it to DockerHub
-(''' pipeline {
+pipeline {
     agent any 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
+    DOCKERHUB_CREDENTIALS = credentials('123456')
     }
-    stages {
+    stages { 
         stage('SCM Checkout') {
-            steps {
-                git branch: 'main', credentialsId: 'github-credentials', url: 'https://github.com/yourusername/yourrepo.git'
+            steps{
+           git branch: 'main', credentialsId: '123465', url: 'https://github.com/Lakshma12/jenkins-docker.git'
             }
         }
-        
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t yourusername/nodeapp:${BUILD_NUMBER} .'
-            }
-        }
-        
-        stage('Login to DockerHub') {
-            steps {
-                docker.withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                }
-            }
-        }
-        
-        stage('Push Image') {
-            steps {
-                sh 'docker push yourusername/nodeapp:${BUILD_NUMBER}'
-            }
-        }
-    }
 
-    post {
+        stage('Build docker image') {
+            steps {  
+                sh 'docker build -t reddy557/nodeapp:$BUILD_NUMBER .'
+            }
+        }
+        stage('login to dockerhub') {
+            steps{
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
+        stage('push image') {
+            steps{
+                sh 'docker push reddy557/nodeapp:$BUILD_NUMBER'
+            }
+        }
+}
+post {
         always {
             sh 'docker logout'
         }
     }
 }
-''')
+
+# Step3:
+Clones the code from GitHub.
+Builds a Docker image using the Dockerfile in the repository.
+Pushes the Docker image to DockerHub
