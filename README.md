@@ -9,32 +9,43 @@
 5.Jenkins credentials are set up for both GitHub and DockerHub.
 # step2:Create a Jenkins Pipeline
 Create a Jenkinsfile that defines the pipeline to clone the code, build the Docker image, and push it to DockerHub
- (```stage('Build Docker Image') {
-    steps {
-        script {
-            // Build Docker image with dynamic tag using Jenkins build number
-            sh 'docker build -t reddy557/nodeapp:${BUILD_NUMBER} .'
-        }
+(''' pipeline {
+    agent any 
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
     }
-}
-
-stage('Login to DockerHub') {
-    steps {
-        script {
-            // Login to DockerHub using Jenkins credentials (ensure credentials are configured in Jenkins)
-            docker.withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+    stages {
+        stage('SCM Checkout') {
+            steps {
+                git branch: 'main', credentialsId: 'github-credentials', url: 'https://github.com/yourusername/yourrepo.git'
+            }
+        }
+        
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t yourusername/nodeapp:${BUILD_NUMBER} .'
+            }
+        }
+        
+        stage('Login to DockerHub') {
+            steps {
+                docker.withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                }
+            }
+        }
+        
+        stage('Push Image') {
+            steps {
+                sh 'docker push yourusername/nodeapp:${BUILD_NUMBER}'
             }
         }
     }
-}
 
-stage('Push Image to DockerHub') {
-    steps {
-        script {
-            // Push Docker image to DockerHub with the tag as the build number
-            sh 'docker push reddy557/nodeapp:${BUILD_NUMBER}'
+    post {
+        always {
+            sh 'docker logout'
         }
     }
 }
- )
+''')
